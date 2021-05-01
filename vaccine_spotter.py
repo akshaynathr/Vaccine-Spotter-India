@@ -98,7 +98,7 @@ def call_api():
                 print "age_limit:"+ str(center['age_limit'])
                 print "---------------------------------------------------------" '''
                 result_str = result_str + center['name'] + "\n"
-                result_str = result_str + "block:"+center['block_name']
+                result_str = result_str + "block:"+center['block_name'] + "\n"
                 result_str = result_str + "vaccine count:"+str(center['available_capacity']) + "\n"
                 result_str = result_str + "vaccine type:"+ center['vaccine_type'] + "\n"
                 result_str = result_str + center['date'] + "\n"
