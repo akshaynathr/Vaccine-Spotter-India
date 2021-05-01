@@ -15,7 +15,7 @@ It uses the api from COWIN site to monitor for vaccine availability and sent an 
 
 ## Installation
 
-Dillinger requires python3 to run
+Vaccine-spotter requires python3 to run
 
 Set email details, district_id in the script 
 
