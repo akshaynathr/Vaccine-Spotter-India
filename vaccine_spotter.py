@@ -18,13 +18,18 @@ today = date.today()
 __district = "297" #kannur
 
 '''
+295 - Kasargod
+296 - Thiruvananthapuram
 298 - kollam
 299 - Wayanad
+300 - Pathanamthitta
 302 - Malappuram
 303 - thrissue
 305 - Kozikode
 306- idukki
-307 - ernakulam'''
+307 - ernakulam
+308 - palakkad
+'''
 
 
 
