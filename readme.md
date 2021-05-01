@@ -2,7 +2,7 @@
 
 
 
-Vaccine spotter is a simple tool for tracking the availability of vaccines in any state in India
+Vaccine spotter is a simple tool for tracking the availability of Covid vaccines in any state in India
 It uses the api from COWIN site to monitor for vaccine availability and sent an immediate email to user.
  ✨
 
