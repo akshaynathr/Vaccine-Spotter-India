@@ -2,15 +2,15 @@ import requests
 from datetime import date,datetime
 import os
 import smtplib
-from time import time,ctime
+from time import time,ctime,sleep
 
-email_user = '<from_email@email.com>'
+email_user = 'your_mail@gmail.com'
 email_password = '<password>'
 
 sent_from = email_user
-to = ['<to_email@email.com>']
+to = ['your-mail@gmail.com']
 
-minutes = 1
+minutes = 5
 
 today = date.today()
 
@@ -51,7 +51,7 @@ To: %s
 Subject: %s
 %s
 """ % (sent_from, ", ".join(to), subject, body)
-	print email_text
+	print (email_text)
 
 	try:
 	    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
@@ -60,9 +60,9 @@ Subject: %s
 	    server.sendmail(sent_from, to, email_text)
 	    server.close()
 
-	    print 'Email sent!'
+	    print ('Email sent!')
 	except Exception as e:
-	    print 'Something went wrong...'
+	    print ('Something went wrong...')
 	    print (e)
 	
 
@@ -86,11 +86,11 @@ def call_api():
     response = requests.get(api)
 
     if response.status_code == 200:
-        print "API call success"
+        print ("API call success")
         result = response.json()
         output = parse_json(result)
         if len(output) > 0:
-            print "Vaccines available"
+            print ("Vaccines available")
             print('\007')
             result_str = ""
             for center in output:
@@ -113,7 +113,7 @@ def call_api():
 
         else:
             
-            print "Vaccines not available \n"
+            print ("Vaccines not available \n")
 
 t = datetime.now()
 
@@ -124,5 +124,6 @@ if __name__ == '__main__':
         if delta.seconds >= minutes * 60:
             call_api()
             t = datetime.now()
+#   	#sleep(minutes * 60)
         
 
