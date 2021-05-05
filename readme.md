@@ -11,7 +11,13 @@ It uses the api from COWIN site to monitor for vaccine availability and sent an 
 - Run in the terminal and monitor the vaccine availability
 - Sent email to email address set by user immediately when there is vaccines available
 
- 
+### Update
+- Now Vaccine spotter supports age filter as per request from many people
+``` sh
+# remove the age not needed to be monitored from the age list in script 
+age = [18,45]
+
+``` 
 
 ## Installation
 
@@ -48,6 +54,9 @@ Some examples:
 306- idukki
 307 - ernakulam
 308 - palakkad
+571 - Chennai
+276 - Bangalore Rural
+265 - Bangalore Urban
 '''
 ``` 
 

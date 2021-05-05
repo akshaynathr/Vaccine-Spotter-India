@@ -4,18 +4,19 @@ import os
 import smtplib
 from time import time,ctime,sleep
 
-email_user = 'your_mail@gmail.com'
-email_password = '<password>'
+email_user = 'your_email@gmail.com'
+email_password = 'kl22l1006'
 
 sent_from = email_user
-to = ['your-mail@gmail.com']
+to = ['your_email@gmail.com']
 
 minutes = 5
 
 today = date.today()
 
+age_limit = [18,45]
 
-__district = "297" #kannur
+__district = "352" #kannur
 
 '''
 295 - Kasargod
@@ -30,7 +31,6 @@ __district = "297" #kannur
 307 - ernakulam
 308 - palakkad
 '''
-
 
 
 d1 = today.strftime("%d/%m/%Y")
@@ -75,7 +75,8 @@ def parse_json(result):
 		for session in sessions:
 			if session['available_capacity'] > 0:
 				res = { 'name': center['name'], 'block_name':center['block_name'],'age_limit':session['min_age_limit'], 'vaccine_type':session['vaccine'] , 'date':session['date'],'available_capacity':session['available_capacity'] }
-				output.append(res)
+				if session['min_age_limit'] in age_limit:
+					output.append(res)
 	return output
 				
 	
