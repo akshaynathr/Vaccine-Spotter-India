@@ -21,22 +21,24 @@ email_password = email_info['email_password']
 to = email_info['to']
 
 # area code
-__district_code = area_info['__district_code']
+__pincode = area_info['__pincode']
 
-
-minutes = 1
+## call api after every five minutes
+minutes = 5
 
 today = date.today()
 d1 = today.strftime("%d/%m/%Y")
 
 __date = str(d1).replace("/","-")
 
+
+## send email of avalailable vaccination centres
 def send_email(res):
 	# turn on allow less secure apps to get email
 	#  https://myaccount.google.com/lesssecureapps
 	# suggest to use a backup account for this to preserve security
 	
-	subject = 'Vaccine slot available in your area'
+	subject = 'Vaccine slot available for pincode ' + __pincode
 	body = "Following vaccines centers are found \n\n Query Time :  "+ctime(time())+"\n\n" + res
 
 	email_text = """\
@@ -58,33 +60,34 @@ Subject: %s
 	except Exception as e:
 	    print('Something went wrong...')
 	    print (e)
-	
 
 
-def parse_json(result):
-	output = []
-	centers = result['centers']
-	for center in centers:
-		sessions = center['sessions']
-		for session in sessions:
-			if session['available_capacity'] > 0:
-				res = { 'name': center['name'], 'block_name':center['block_name'],'age_limit':session['min_age_limit'], 'vaccine_type':session['vaccine'] , 'date':session['date'],'available_capacity':session['available_capacity'] }
-				output.append(res)
-	return output
-				
-	
+
+def parse_json_pincode(result):
+    output = []
+    sessions = result['sessions']
+    if len(sessions):
+        return output
+    for session in sessions:
+        if session['available_capacity'] >= 0:
+            res = { 'name': session['name'], 'block_name':session['block_name'],'age_limit':session['min_age_limit'], 'vaccine_type':session['vaccine'] , 'date':session['date'],'available_capacity':session['available_capacity'] }
+            output.append(res)
+    return output
+
+## main function
 def call_api():
     print(ctime(time()))
-    api = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id=" + __district_code + "&date="+ __date
+    api_pin = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + __pincode + "&date=" + __date
 
-    response = requests.get(api)
+    # print(api_pin)
+    response = requests.get(api_pin)
     # print(response)
     if response.status_code == 200:
         print("API call success")
         result = response.json()
-        output = parse_json(result)
+        output = parse_json_pincode(result)
         if len(output) > 0:
-            print("Vaccines available")
+            print("Vaccines available\n")
             print('\007')
             result_str = ""
             for center in output:
@@ -95,13 +98,13 @@ def call_api():
                 result_str = result_str + center['date'] + "\n"
                 result_str = result_str + "age_limit:"+str(center['age_limit'])+"\n"
                 result_str = result_str + "-----------------------------------------------------\n"
+                # print(center)
             send_email(result_str)
 
         else:
-            
             print("Vaccines not available \n")
     else:
-        print("something went wrong :( Status code {} \nTrying again.....".format(response.status_code))
+        print("something went wrong :(\nStatus code {} \nTrying again.....\n".format(response.status_code))
 
 t = datetime.now()
 

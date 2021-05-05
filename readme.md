@@ -1,74 +1,91 @@
-# Vaccine spotter for India
+# Vaccine spotter for India using pincode
 
-
-
-Vaccine spotter is a simple tool for tracking the availability of Covid vaccines in any state in India
-It uses the api from COWIN site to monitor for vaccine availability and sent an immediate email to user.
+Vaccine spotter is a simple tool for tracking the availability of Covid vaccines in any state in India :in: by pincode.
+It uses the api from COWIN site to monitor for vaccine availability and sent an immediate email :envelope: to user.
  ✨
 
 ## Features
 
+- Check availability of vaccine by providing pincode or district code of your area
 - Run in the terminal and monitor the vaccine availability
-- Sent email to email address set by user immediately when there is vaccines available
+- Send email to email address set by user immediately when there is vaccines available
+- set age range to check availability in that range.
 
-### Update
-- Now Vaccine spotter supports age filter as per request from many people
+
+## Set Up
+
+Vaccine-spotter requires [python3](https://www.python.org/downloads/) to run
+
+Project dependencies can be installed using the following command:
+
 ``` sh
-# remove the age not needed to be monitored from the age list in script 
-age_limit = [18,45]
+pip install -r requirements.txt
+```
 
-``` 
+Note :notebook: For gmail, the less secure apps connection needs to be turned on for email to work from [here](https://myaccount.google.com/lesssecureapps).
+for other mail providers the smpt address should be modified.
 
-## Installation
 
-Vaccine-spotter requires python3 to run
 
-Set email details, district_id in the script 
+## Usage
+for running these scripts you've to set the email details in config.yml file.
+Edit following part of code in config.yml file
+``` sh 
+email:
+  sent_from : "<sender_email>" 
+  email_password : "<sender_password>"
 
-** Note: For gmail to work, the lesssecureapps connection needs to be turned on for email to work :  https://myaccount.google.com/lesssecureapps **
+  # [edit] enter receiver email details
+  to : ["<receiver_email_id>"]
+```
+
+There are two ways in which you can see vaccine availability
+1. vaccine spotter by pincode.
+set your area pincode in config.yml file here for example. FInd pincode of your area [here](https://www.indiapost.gov.in/VAS/Pages/findpincode.aspx)
+``` sh 
+area_info:
+# [edit] enter your district code or pincode
+  __district_code : "<district_code>" 
+  __pincode : "<pincode>"
+```
+Run  
+```sh
+python3 vaccine-spotter-by-pincode.py
+
+```
+Then it'll search for vaccine availability in your area.
+
+
+2. vaccine spotter by district code
+Set district code in the config.yml file.
+To know your district code follow these steps:
+
+- see your state code [here](https://cdn-api.co-vin.in/api/v2/admin/location/states) 
+
+- Now edit your state code in this url https://cdn-api.co-vin.in/api/v2/admin/location/districts/{your_state_code} 
+  e.g. https://cdn-api.co-vin.in/api/v2/admin/location/districts/16 for karnataka
+
+- here you can see your district code.
+
+
+edit the following piece of code in config.yml file
 
 ``` sh 
-# For gmail, the lesssecureapps connection needs to be turned on for email to work :  https://myaccount.google.com/lesssecureapps
-# need to change the smpt address for other mail providers
 
-email_user = '<your_email>@gmail.com'
-email_password = '<password>'
-
-sent_from = email_user
-to = ['<your_email@gmail.com>']
-
-# time gap
-minutes = 1
-
-__district = "district_id"
-'''
-Some examples: 
-295 - Kasargod
-296 - Thiruvananthapuram
-298 - kollam
-299 - Wayanad
-300 - Pathanamthitta
-302 - Malappuram
-303 - thrissue
-305 - Kozikode
-306- idukki
-307 - ernakulam
-308 - palakkad
-571 - Chennai
-276 - Bangalore Rural
-265 - Bangalore Urban
-'''
+area_info:
+# [edit] enter your district code or pincode
+  __district_code : "<district_code>"
 ``` 
 
 Run the script after setting the values 
 ```sh
-python vaccine_spotter.py
+python3 vaccine-spotter-by-pincode.py
 
 ```
-No data is collected from users . The script is open to verify
- 
+It'll search for availibilit of vaccine centers in that area.
+
+
 ## Development
 
-Want to contribute? Great!
-
-
+Want to contribute? Great! 
+Feel free to raise a pull request :hugs:
