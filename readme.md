@@ -19,6 +19,8 @@ Vaccine-spotter requires python3 to run
 
 Set email details, district_id in the script 
 
+** Note: For gmail to work, the lesssecureapps connection needs to be turned on for email to work :  https://myaccount.google.com/lesssecureapps **
+
 ``` sh 
 # For gmail, the lesssecureapps connection needs to be turned on for email to work :  https://myaccount.google.com/lesssecureapps
 # need to change the smpt address for other mail providers
