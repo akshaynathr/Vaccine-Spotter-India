@@ -23,11 +23,11 @@ Set email details, district_id in the script
 # For gmail, the lesssecureapps connection needs to be turned on for email to work :  https://myaccount.google.com/lesssecureapps
 # need to change the smpt address for other mail providers
 
-email_user = 'test@gmail.com'
+email_user = '<your_email>@gmail.com'
 email_password = '<password>'
 
 sent_from = email_user
-to = ['<to_email@gmail.com>']
+to = ['<your_email@gmail.com>']
 
 # time gap
 minutes = 1
