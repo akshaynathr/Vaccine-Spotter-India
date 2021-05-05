@@ -4,11 +4,11 @@ import os
 import smtplib
 from time import time,ctime,sleep
 
-email_user = 'your_email@gmail.com'
-email_password = 'kl22l1006'
+email_user = 'your-email@gmail.com'
+email_password = 'your-password'
 
 sent_from = email_user
-to = ['your_email@gmail.com']
+to = ['your-email@gmail.com']
 
 minutes = 5
 
@@ -16,7 +16,7 @@ today = date.today()
 
 age_limit = [18,45]
 
-__district = "352" #kannur
+__district = "297" #kannur
 
 '''
 295 - Kasargod
