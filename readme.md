@@ -15,7 +15,7 @@ It uses the api from COWIN site to monitor for vaccine availability and sent an 
 - Now Vaccine spotter supports age filter as per request from many people
 ``` sh
 # remove the age not needed to be monitored from the age list in script 
-age = [18,45]
+age_limit = [18,45]
 
 ``` 
 
