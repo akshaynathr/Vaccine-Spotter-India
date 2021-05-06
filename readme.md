@@ -1,6 +1,6 @@
 # Vaccine spotter for India using pincode
 
-Vaccine spotter is a simple tool for tracking the availability of Covid vaccines in any state in India by pincode.
+Vaccine spotter is a simple tool for tracking the availability of Covid vaccines in any state in India by pincode or district code.
 It uses the [api](https://apisetu.gov.in/public/marketplace/api/cowin/cowin-public-v2#/Appointment%20Availability%20APIs/findByPin) from COWIN site to monitor for vaccine availability and sent an immediate email :envelope: to user.
  ✨
 
@@ -28,8 +28,8 @@ for other mail providers the smpt address should be modified.
 
 
 ## Usage
-for running these scripts you've to set the email details in [config file](config.yml) file.
-Edit following part of code in config.yml file
+For running these scripts you've to set the email details in [config file](config.yml) file.
+Edit following part of code in [config file](config.yml) file
 ``` sh 
 email:
   sent_from : "<sender_email>" 
@@ -40,35 +40,42 @@ email:
 ```
 
 There are two ways in which you can see vaccine availability
-1. vaccine spotter by pincode.
-set your area pincode in [config file](config.yml) file here for example. FInd pincode of your area [here](https://www.indiapost.gov.in/VAS/Pages/findpincode.aspx)
+
+### Using pincode.
+Set your area pincode in [config file](config.yml) file as shown below. Find pincode of your area [here](https://www.indiapost.gov.in/VAS/Pages/findpincode.aspx)
 ``` sh 
 area_info:
 # [edit] enter your district code or pincode
   __district_code : "<district_code>" 
   __pincode : "<pincode>"
 ```
+
+Edit [vaccineSpotter](vaccineSpotter.py) file and set 
+```sh
+query_type = "pincode"
+```
+
 Run  
 ```sh
-python3 vaccine-spotter-by-pincode.py
+python3 vaccineSpotter.py
 
 ```
 Then it'll search for vaccine availability in your area.
 
 
-2. vaccine spotter by district code
+### Using district code
 Set district code in the [config file](config.yml) file.
 To know your district code follow these steps:
 
-- see your state code [here](https://cdn-api.co-vin.in/api/v2/admin/location/states) 
+- First see your state code [here](https://cdn-api.co-vin.in/api/v2/admin/location/states) 
 
 - Now edit your state code in this url https://cdn-api.co-vin.in/api/v2/admin/location/districts/{your_state_code} 
   e.g. https://cdn-api.co-vin.in/api/v2/admin/location/districts/16 for karnataka
 
-- on the above url here you can see your district code.
+- click on the url for your state you can see your district code by searching your district name.
 
 
-enter the district code in [config file](config.yml) file
+Enter the district code in [config file](config.yml) file
 
 ``` sh 
 
@@ -76,10 +83,13 @@ area_info:
 # [edit] enter your district code or pincode
   __district_code : "<district_code>"
 ``` 
-
+Edit [vaccineSpotter](vaccineSpotter.py) file and set 
+```sh
+query_type = "district_code"
+```
 Run the script after setting the values 
 ```sh
-python3 vaccine-spotter-by-pincode.py
+python3 vaccineSpotter.py
 
 ```
 It'll search for availibility of vaccine centers in that area.
