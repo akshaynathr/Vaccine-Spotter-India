@@ -1,7 +1,7 @@
 # Vaccine spotter for India using pincode
 
-Vaccine spotter is a simple tool for tracking the availability of Covid vaccines in any state in India :in: by pincode.
-It uses the api from COWIN site to monitor for vaccine availability and sent an immediate email :envelope: to user.
+Vaccine spotter is a simple tool for tracking the availability of Covid vaccines in any state in India by pincode.
+It uses the [api](https://apisetu.gov.in/public/marketplace/api/cowin/cowin-public-v2#/Appointment%20Availability%20APIs/findByPin) from COWIN site to monitor for vaccine availability and sent an immediate email :envelope: to user.
  ✨
 
 ## Features
@@ -28,7 +28,7 @@ for other mail providers the smpt address should be modified.
 
 
 ## Usage
-for running these scripts you've to set the email details in config.yml file.
+for running these scripts you've to set the email details in [config file](config.yml) file.
 Edit following part of code in config.yml file
 ``` sh 
 email:
@@ -41,7 +41,7 @@ email:
 
 There are two ways in which you can see vaccine availability
 1. vaccine spotter by pincode.
-set your area pincode in config.yml file here for example. FInd pincode of your area [here](https://www.indiapost.gov.in/VAS/Pages/findpincode.aspx)
+set your area pincode in [config file](config.yml) file here for example. FInd pincode of your area [here](https://www.indiapost.gov.in/VAS/Pages/findpincode.aspx)
 ``` sh 
 area_info:
 # [edit] enter your district code or pincode
@@ -57,7 +57,7 @@ Then it'll search for vaccine availability in your area.
 
 
 2. vaccine spotter by district code
-Set district code in the config.yml file.
+Set district code in the [config file](config.yml) file.
 To know your district code follow these steps:
 
 - see your state code [here](https://cdn-api.co-vin.in/api/v2/admin/location/states) 
@@ -65,10 +65,10 @@ To know your district code follow these steps:
 - Now edit your state code in this url https://cdn-api.co-vin.in/api/v2/admin/location/districts/{your_state_code} 
   e.g. https://cdn-api.co-vin.in/api/v2/admin/location/districts/16 for karnataka
 
-- here you can see your district code.
+- on the above url here you can see your district code.
 
 
-edit the following piece of code in config.yml file
+enter the district code in [config file](config.yml) file
 
 ``` sh 
 
@@ -82,7 +82,7 @@ Run the script after setting the values
 python3 vaccine-spotter-by-pincode.py
 
 ```
-It'll search for availibilit of vaccine centers in that area.
+It'll search for availibility of vaccine centers in that area.
 
 
 ## Development

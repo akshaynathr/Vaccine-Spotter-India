@@ -9,3 +9,5 @@ area_info:
 # [edit] enter your district code or pincode
   __district_code : "<district_code>" 
   __pincode : "<pincode>"
+age_limit:
+  age_limit : [18, 45]
