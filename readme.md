@@ -1,6 +1,6 @@
 # Vaccine spotter for India using pincode
 
-Vaccine spotter is a simple tool for tracking the availability of Covid vaccines in any state in India by pincode.
+Vaccine spotter is a simple tool for tracking the availability of Covid vaccines in any state in India by pincode or district code.
 It uses the [api](https://apisetu.gov.in/public/marketplace/api/cowin/cowin-public-v2#/Appointment%20Availability%20APIs/findByPin) from COWIN site to monitor for vaccine availability and sent an immediate email :envelope: to user.
  ✨
 
