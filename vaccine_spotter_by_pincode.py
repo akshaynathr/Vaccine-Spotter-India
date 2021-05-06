@@ -27,7 +27,7 @@ __pincode = area_info['__pincode']
 age_limit = age_limit_info['age_limit']
 
 ## call api after every five minutes
-minutes = 5
+minutes = 30
 
 today = date.today()
 d1 = today.strftime("%d/%m/%Y")
@@ -103,9 +103,9 @@ def call_api():
 			send_email(result_str)
 
 		else:
-			print("Vaccines not available for age limit {}\nTrying again after 1 minute.....\n".format(*age_limit))
+			print("Vaccines not available for age limit {}\nTrying again after" + format(minutes) + "minute(s).....\n".format(*age_limit))
 	else:
-		print("something went wrong :(\nStatus code {} \nTrying again after 1 minute.....\n".format(response.status_code))
+		print("something went wrong :(\nStatus code {} \nTrying again after" + format(minutes) + "minute(s).....\n".format(response.status_code))
 
 t = datetime.now()
 
