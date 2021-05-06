@@ -1,0 +1,13 @@
+email:
+  sent_from : "<sender_email>" 
+  email_password : "<sender_password>"
+
+  # [edit] enter receiver email details
+  to : ["<receiver_email_id>"]
+
+area_info:
+# [edit] enter your district code or pincode
+  __district_code : "<district_code>" 
+  __pincode : "<pincode>"
+age_limit:
+  age_limit : [18, 45]
