@@ -30,7 +30,7 @@ for other mail providers the smpt address should be modified.
 
 ## Usage
 For running these scripts you've to set the email details in [config file](config.yml).
-Edit [email details](config.yml#L2-6) in config file. You can also edit the [wait time](config.yml#L18) and [age limit](config.yml#L14).
+Edit [email details](config.yml#L2-L6) in config file. You can also edit the [wait time](config.yml#L18) and [age limit](config.yml#L14).
 
 
 There are two ways in which you can see vaccine availability
