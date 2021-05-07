@@ -12,3 +12,7 @@ area_info:
   
 age_limit:
   age_limit : [18, 45]
+
+query_info:
+  query_type : 'district_code' # set it to "pincode" to query by pincode
+  wait_time : 5 # time delay in minutes
