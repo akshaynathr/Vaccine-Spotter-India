@@ -38,6 +38,14 @@ email:
   # [edit] enter receiver email details
   to : ["<receiver_email_id>"]
 ```
+For sending messages on telegram . create a telegram bot , create a channel and attach bot to the channel.
+put channel_id and bot_token in config.
+[how to cerate a telegram bot](https://core.telegram.org/bots#3-how-do-i-create-a-bot)
+```sh
+telegram:
+  token : "<telegram_bot_token>"
+  channel : "<telegram_channel_name>"
+  ```
 
 There are two ways in which you can see vaccine availability
 
