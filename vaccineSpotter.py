@@ -140,7 +140,7 @@ From: {self.sent_from}
 					result_str = result_str + "age_limit:"+str(center['age_limit'])+"\n"
 					result_str = result_str + "-----------------------------------------------------\n"
 				self.prev_response=result
-				self.send_email(result_str,d1)
+				# self.send_email(result_str,d1)
 				self.send_telegram_msg(result_str)
 
 			else:
