@@ -12,6 +12,10 @@ class vaccineSpotter:
 		self.time_delay = time_delay
 		self.cfg = self.read_config()
 		self.set_params()
+		self.prev_response=None
+		self.telegram_info=None
+		self.headers = {'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"}
+
 
 	def read_config(self):
 		with open(self.config_file_path, "r") as ymlfile:
@@ -38,6 +42,12 @@ class vaccineSpotter:
 		#age limit for vaccination
 		self.age_limit_info = self.cfg['age_limit']
 		self.age_limit = self.age_limit_info['age_limit']
+
+		self.telegram_info=self.cfg['telegram']
+		self.telegram_token=self.telegram_info["token"]
+		self.telegram_channel=self.telegram_info["channel"]
+
+		self.base = "https://api.telegram.org/bot{}/".format(self.telegram_token)
 
 	def send_email(self, result,d1):
 	# turn on allow less secure apps to get email
@@ -66,6 +76,12 @@ From: {self.sent_from}
 			print (e)
 		# finally:
 		# 	server.quit()
+
+	def send_telegram_msg(self,result_str):
+		url = self.base + "sendMessage?chat_id=@{}&text={}".format(self.telegram_channel,result_str)
+		if result_str is not None:
+			response=requests.get(url,headers=self.headers)
+			print("response from telegram :{}".format(response))
 
 	def parse_json_district_code(self, result):
 		output = []
@@ -101,6 +117,9 @@ From: {self.sent_from}
 		if response.status_code == 200:
 			print("API call success")
 			result = response.json()
+			if result==self.prev_response:
+				print('response is same as previous .... skipping\n')
+				return
 			if query_type=='district_code':
 				output = self.parse_json_district_code(result)
 			elif query_type =='pincode':
@@ -120,7 +139,9 @@ From: {self.sent_from}
 					result_str = result_str + center['date'] + "\n"
 					result_str = result_str + "age_limit:"+str(center['age_limit'])+"\n"
 					result_str = result_str + "-----------------------------------------------------\n"
+				self.prev_response=result
 				self.send_email(result_str,d1)
+				self.send_telegram_msg(result_str)
 
 			else:
 				print("Vaccines not available for age limit {}\nTrying again\
@@ -130,7 +151,7 @@ From: {self.sent_from}
 				after {} minute.....\n".format(response.status_code, self.time_delay))
 
 
-	def query(self, root_url, headers, query_type,d1):
+	def query(self, root_url, query_type,d1):
 		print(ctime(time()))
 		
 		# format date
@@ -147,27 +168,26 @@ From: {self.sent_from}
 		else:
 			print('incorrect query type\nquery type must be either district_code or pincode\n')
 			return
-		self.call_api(url,  headers, query_type,d1)
+		self.call_api(url,  self.headers, query_type,d1)
 
 
 t = datetime.now()
 if __name__ == '__main__':
-	time_delay = 5
+	time_delay =0.05
 	query_type = 'district_code' # set it to "pincode" to query by pincode
 	config_file_path = 'config.yml'
 	
 	print("querying by {} .....".format(query_type))
 	## root url and headers
 	root_url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public"
-	headers = {'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"}
 
 	vaccineSpotter = vaccineSpotter(config_file_path, time_delay)
 
 	while True:
 		delta = datetime.now()-t
 		if delta.seconds >= time_delay * 60:
-			for i in range(6):
-				d1=datetime.strftime(datetime.today() + timedelta(days = i) , ("%d/%m/%Y"))
-				print("trying to get slots for date:{}.....\n".format(d1))
-				vaccineSpotter.query(root_url, headers, query_type,d1)
-				t = datetime.now()
+			# for i in range(6):
+			d1=datetime.strftime(datetime.today() + timedelta(days = 0) , ("%d/%m/%Y"))
+			print("trying to get slots for date:{}.....\n".format(d1))
+			vaccineSpotter.query(root_url,query_type,d1)
+			t = datetime.now()
