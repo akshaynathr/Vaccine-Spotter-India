@@ -187,7 +187,11 @@ if __name__ == '__main__':
 		delta = datetime.now()-t
 		if delta.seconds >= time_delay * 60:
 			# for i in range(6):
-			d1=datetime.strftime(datetime.today() + timedelta(days = 0) , ("%d/%m/%Y"))
-			print("trying to get slots for date:{}.....\n".format(d1))
-			vaccineSpotter.query(root_url,query_type,d1)
-			t = datetime.now()
+			try:
+				d1=datetime.strftime(datetime.today() + timedelta(days = 0) , ("%d/%m/%Y"))
+				print("trying to get slots for date:{}.....\n".format(d1))
+				vaccineSpotter.query(root_url,query_type,d1)
+				t = datetime.now()
+			except Exception as e:
+				print("EXCEPTION : ".format(e))
+
