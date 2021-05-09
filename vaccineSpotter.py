@@ -90,8 +90,8 @@ From: {self.sent_from}
 			sessions = center['sessions']
 			for session in sessions:
 				if session['available_capacity'] > 0:
-					res = { 'name': center['name'], 'block_name':center['block_name'],\
-					'age_limit':session['min_age_limit'], 'vaccine_type':session['vaccine'] ,\
+					res = { 'name': center['name'], 'block_name':center['block_name'],'address':center['address'],\
+					'fee_type':center['fee_type'],'age_limit':session['min_age_limit'], 'vaccine_type':session['vaccine'] ,\
 					 'date':session['date'],'available_capacity':session['available_capacity'] }
 					if res['age_limit'] in self.age_limit:
 						output.append(res)
@@ -105,8 +105,8 @@ From: {self.sent_from}
 			return output
 		for session in sessions:
 			if session['available_capacity'] >= 0:
-				res = { 'name': session['name'], 'block_name':session['block_name'], \
-				'age_limit':session['min_age_limit'], 'vaccine_type':session['vaccine'] , \
+				res = { 'name': session['name'], 'block_name':session['block_name'],'address':center['address'],\
+				'fee_type':center['fee_type'],'age_limit':session['min_age_limit'], 'vaccine_type':session['vaccine'] , \
 				'date':session['date'],'available_capacity':session['available_capacity'] }
 				if res['age_limit'] in self.age_limit:
 					output.append(res)
@@ -134,6 +134,8 @@ From: {self.sent_from}
 				for center in output:
 					result_str = result_str + center['name'] + "\n"
 					result_str = result_str + "block:"+center['block_name'] + "\n"
+					result_str = result_str + "address:"+center['address'] + "\n"
+					result_str = result_str + "fee_type:"+center['fee_type'] + "\n"
 					result_str = result_str + "vaccine count:"+str(center['available_capacity']) + "\n"
 					result_str = result_str + "vaccine type:"+ center['vaccine_type'] + "\n"
 					result_str = result_str + center['date'] + "\n"
