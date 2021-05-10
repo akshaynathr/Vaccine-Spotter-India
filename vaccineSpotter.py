@@ -175,7 +175,7 @@ From: {self.sent_from}
 
 t = datetime.now()
 if __name__ == '__main__':
-	time_delay = 3
+	time_delay = 1
 	query_type = 'district_code' # set it to "pincode" to query by pincode
 	config_file_path = 'config.yml'
 	
