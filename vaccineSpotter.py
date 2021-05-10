@@ -48,12 +48,8 @@ class vaccineSpotter:
 		body = "Following vaccines centers are found \n\n Query Time : \
 				 "+ctime(time())+"\n\n" + result
 
-		email_text = """\
-	From: %s
-	To: %s 
-	Subject: %s
-	%s
-	""" % (self.sent_from, ", ".join(self.to), subject, body)
+		email_text = """From: %s\nTo: %s\nSubject: %s\n\n%s
+		""" % (self.sent_from, ", ".join(self.to), subject, body)
 		print(email_text)
 
 		try:
