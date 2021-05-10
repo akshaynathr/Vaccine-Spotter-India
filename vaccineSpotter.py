@@ -130,17 +130,17 @@ From: {self.sent_from}
 			if len(output) > 0:
 				print("Vaccines available")
 				print('\007')
-				result_str = ""
+				result_str = "!!!! AVAILABLE SLOTS ALERT !!!!"+ "\n\n"
 				for center in output:
-					result_str = result_str + center['name'] + "\n"
-					result_str = result_str + "block:"+center['block_name'] + "\n"
-					result_str = result_str + "address:"+center['address'] + "\n"
-					result_str = result_str + "fee_type:"+center['fee_type'] + "\n"
-					result_str = result_str + "vaccine count:"+str(center['available_capacity']) + "\n"
-					result_str = result_str + "vaccine type:"+ center['vaccine_type'] + "\n"
-					result_str = result_str + center['date'] + "\n"
-					result_str = result_str + "age_limit:"+str(center['age_limit'])+"\n"
-					result_str = result_str + "-----------------------------------------------------\n"
+					result_str = result_str + "Center Name : "+center['name'] + "\n"
+					result_str = result_str + "Date : "+str(center['date']) + "\n"
+					result_str = result_str + "Block : "+center['block_name'] + "\n"
+					result_str = result_str + "Address : "+center['address'] + "\n"
+					result_str = result_str + "Fee Type : "+center['fee_type'] + "\n"
+					result_str = result_str + "Available Vaccine Count : "+str(center['available_capacity']) + "\n"
+					result_str = result_str + "Vaccin Type : "+ center['vaccine_type'] + "\n"
+					result_str = result_str + "Age limit : "+str(center['age_limit'])+"\n"
+					result_str = result_str + "\n-----------------------------------------------------\n"
 				self.prev_response=result
 				# self.send_email(result_str,d1)
 				self.send_telegram_msg(result_str)
@@ -175,7 +175,7 @@ From: {self.sent_from}
 
 t = datetime.now()
 if __name__ == '__main__':
-	time_delay = 1
+	time_delay = 0.2
 	query_type = 'district_code' # set it to "pincode" to query by pincode
 	config_file_path = 'config.yml'
 	
@@ -195,5 +195,4 @@ if __name__ == '__main__':
 				vaccineSpotter.query(root_url,query_type,d1)
 				t = datetime.now()
 			except Exception as e:
-				print("EXCEPTION : ".format(e))
-
+				print("EXCEPTION : {}".format(e))
