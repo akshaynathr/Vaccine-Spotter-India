@@ -24,16 +24,16 @@ class vaccineSpotter:
 		
 	def set_params(self):
 		## params
-		self.email_info = self.cfg["email"]
 		self.area_info = self.cfg["area_info"]
 		
 		## sender mail info
-		self.sent_from = self.email_info['sent_from']
-		self.email_user = self.sent_from
-		self.email_password = self.email_info['email_password']
-
-		# receiver email details
-		self.to = self.email_info['to']
+		if self.cfg.get("email"):
+			self.email_info = self.cfg["email"]
+			self.sent_from = self.email_info['sent_from']
+			self.email_user = self.sent_from
+			self.email_password = self.email_info['email_password']
+			# receiver email details
+			self.to = self.email_info['to']
 
 		# area code
 		self.__district_code = self.area_info['__district_code']
@@ -43,11 +43,12 @@ class vaccineSpotter:
 		self.age_limit_info = self.cfg['age_limit']
 		self.age_limit = self.age_limit_info['age_limit']
 
-		self.telegram_info=self.cfg['telegram']
-		self.telegram_token=self.telegram_info["token"]
-		self.telegram_channel=self.telegram_info["channel"]
-
-		self.base = "https://api.telegram.org/bot{}/".format(self.telegram_token)
+		# if self.cfg.
+		if self.cfg.get('telegram') :
+			self.telegram_info=self.cfg['telegram']
+			self.telegram_token=self.telegram_info["token"]
+			self.telegram_channel=self.telegram_info["channel"]
+			self.base = "https://api.telegram.org/bot{}/".format(self.telegram_token)
 
 	def send_email(self, result,d1):
 	# turn on allow less secure apps to get email
@@ -142,8 +143,10 @@ From: {self.sent_from}
 					result_str = result_str + "Age limit : "+str(center['age_limit'])+"\n"
 					result_str = result_str + "\n-----------------------------------------------------\n"
 				self.prev_response=result
-				# self.send_email(result_str,d1)
-				self.send_telegram_msg(result_str)
+				if self.cfg.get("email"):
+					self.send_email(result_str,d1)
+				if self.cfg.get('telegram') :
+					self.send_telegram_msg(result_str)
 
 			else:
 				print("Vaccines not available for age limit {}\nTrying again\
