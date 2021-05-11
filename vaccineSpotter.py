@@ -178,13 +178,14 @@ From: {self.sent_from}
 
 t = datetime.now()
 if __name__ == '__main__':
-	time_delay = 0.2
+	# setu docs say they have a rate limit of 100 requests per 5 min
+	time_delay = 0.1
 	query_type = 'district_code' # set it to "pincode" to query by pincode
 	config_file_path = 'config.yml'
 	
 	print("querying by {} .....".format(query_type))
 	## root url and headers
-	root_url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public"
+	root_url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions"
 
 	vaccineSpotter = vaccineSpotter(config_file_path, time_delay)
 
