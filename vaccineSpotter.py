@@ -170,8 +170,6 @@ if __name__ == '__main__':
 
 	vaccineSpotter = vaccineSpotter(config_file_path, time_delay)
 	vaccine_found_earlier = vaccineSpotter.query(root_url, headers, query_type)
-
-	print("vaccine found earlier {}\n".format(vaccine_found_earlier))
 	
 	while True:
 		delta = datetime.now()-t
