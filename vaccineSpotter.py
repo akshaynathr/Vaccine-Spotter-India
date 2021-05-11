@@ -98,7 +98,11 @@ class vaccineSpotter:
 		return output
 
 	def call_api(self, url, headers, query_type):
-		response = requests.get(url, headers = headers)
+		try:
+			response = requests.get(url, headers = headers)
+		except:
+			print("API CALL FAILED.No internet connection probably.");
+			return
 		if response.status_code == 200:
 			print("API call success")
 			result = response.json()
@@ -122,6 +126,7 @@ class vaccineSpotter:
 					result_str = result_str + "age_limit:"+str(center['age_limit'])+"\n"
 					result_str = result_str + "-----------------------------------------------------\n"
 				self.send_email(result_str)
+				return 1
 
 			else:
 				print("Vaccines not available for age limit {}\nTrying again\
@@ -148,11 +153,12 @@ class vaccineSpotter:
 		else:
 			print('incorrect query type\nquery type must be either district_code or pincode\n')
 			return
-		self.call_api(url,  headers, query_type)
+		return self.call_api(url,  headers, query_type)
 
 
 t = datetime.now()
 if __name__ == '__main__':
+	email_time_factor = 2
 	time_delay = 1
 	query_type = 'district_code' # set it to "pincode" to query by pincode
 	config_file_path = 'config.yml'
@@ -163,10 +169,18 @@ if __name__ == '__main__':
 	headers = {'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36"}
 
 	vaccineSpotter = vaccineSpotter(config_file_path, time_delay)
-	vaccineSpotter.query(root_url, headers, query_type)
+	vaccine_found_earlier = vaccineSpotter.query(root_url, headers, query_type)
 
+	print("vaccine found earlier {}\n".format(vaccine_found_earlier))
+	
 	while True:
 		delta = datetime.now()-t
-		if delta.seconds >= time_delay * 60:
-			vaccineSpotter.query(root_url, headers, query_type)
-			t = datetime.now()
+		if vaccine_found_earlier == 1:
+			if delta.seconds >= ((email_time_factor) * (time_delay * 60)):
+				vaccine_found_earlier = vaccineSpotter.query(root_url, headers, query_type)
+				t = datetime.now()
+		else:
+			if delta.seconds >= time_delay * 60:
+				vaccine_found_earlier = vaccineSpotter.query(root_url, headers, query_type)
+				t = datetime.now()
+
