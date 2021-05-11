@@ -12,3 +12,7 @@ area_info:
   
 age_limit:
   age_limit : [18, 45]
+
+telegram:
+  token : "<telegram_bot_token>"
+  channel : "<telegram_channel_name>"
