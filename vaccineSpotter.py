@@ -185,7 +185,7 @@ if __name__ == '__main__':
 	
 	print("querying by {} .....".format(query_type))
 	## root url and headers
-	root_url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions"
+	root_url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public"
 
 	vaccineSpotter = vaccineSpotter(config_file_path, time_delay)
 
